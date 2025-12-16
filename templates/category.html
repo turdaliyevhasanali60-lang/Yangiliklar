@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Category Header Start -->
+<div class="container-fluid py-5 bg-light">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <ol class="breadcrumb bg-transparent px-0 mb-3">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                    <li class="breadcrumb-item active text-dark">{{ category.name }}</li>
+                </ol>
+                <h1 class="display-5 mb-3">{{ category.name }}</h1>
+                <p class="fs-5 text-secondary mb-0">
+                    {{ total_articles }} ta maqola topildi
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="bg-primary text-white rounded-pill py-3 px-4 d-inline-block">
+                    <i class="fas fa-newspaper fa-2x me-2"></i>
+                    <span class="fs-4">{{ total_articles }}</span>
+                    <small class="d-block">Maqola</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Category Header End -->
+
+<!-- Category Content Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Main Articles -->
+            <div class="col-lg-8 col-xl-9">
+                {% if category_articles %}
+                <div class="row g-4">
+                    {% for article in category_articles %}
+                    <div class="col-12">
+                        <div class="card border-0 bg-light shadow-sm h-100">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-4">
+                                    <div class="overflow-hidden rounded-start" style="height: 220px;">
+                                        <img src="{{ article.cover.url }}" 
+                                             class="img-zoomin img-fluid w-100 h-100" 
+                                             style="object-fit: cover;"
+                                             alt="{{ article.title }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-primary rounded-pill">{{ article.category.name }}</span>
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                {{ article.created_at|date:"d.m.Y" }}
+                                            </small>
+                                        </div>
+                                        <a href="{% url 'article-details' article.slug %}" 
+                                           class="h4 mb-3 text-dark d-block link-hover">
+                                            {{ article.title }}
+                                        </a>
+                                        <p class="mb-3 text-secondary">
+                                            {{ article.intro|truncatechars:150 }}
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <img src="/static/img/user.png" 
+                                                     class="rounded-circle me-2" 
+                                                     width="30" 
+                                                     alt="Author">
+                                                <span class="text-body">{{ article.author|default:"Admin" }}</span>
+                                            </div>
+                                            <div class="d-flex text-muted">
+                                                <span class="me-3">
+                                                    <i class="fa fa-clock me-1"></i>{{ article.read_time }}
+                                                </span>
+                                                <span class="me-3">
+                                                    <i class="fa fa-eye me-1"></i>{{ article.views }}
+                                                </span>
+                                                <span>
+                                                    <i class="fa fa-comment me-1"></i>{{ article.comments.count }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination (if needed in future) -->
+                {% if category_articles.paginator.num_pages > 1 %}
+                <nav class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        {% if category_articles.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ category_articles.previous_page_number }}">Oldingi</a>
+                        </li>
+                        {% endif %}
+                        
+                        {% for num in category_articles.paginator.page_range %}
+                        <li class="page-item {% if category_articles.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endfor %}
+                        
+                        {% if category_articles.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ category_articles.next_page_number }}">Keyingi</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+                
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-newspaper fa-4x text-muted mb-4"></i>
+                    <h3 class="mb-3">Hozircha maqolalar mavjud emas</h3>
+                    <p class="text-secondary mb-4">Ushbu kategoriyada hali maqolalar chop etilmagan</p>
+                    <a href="{% url 'home' %}" class="btn btn-primary px-4">
+                        Bosh sahifaga qaytish
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4 col-xl-3">
+                <!-- Popular Articles -->
+                <div class="bg-light rounded p-4 mb-4">
+                    <h4 class="mb-4">Ko'p ko'rilgan</h4>
+                    <div class="d-flex flex-column">
+                        {% for article in popular_articles %}
+                        <div class="border-bottom pb-3 mb-3">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-4">
+                                    <div class="overflow-hidden rounded">
+                                        <img src="{{ article.cover.url }}" 
+                                             class="img-fluid rounded"
+                                             alt="{{ article.title }}">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <a href="{% url 'article-details' article.slug %}" 
+                                       class="h6 mb-1 d-block link-hover">
+                                        {{ article.title|truncatechars:50 }}
+                                    </a>
+                                    <div class="d-flex text-muted small">
+                                        <span class="me-2">
+                                            <i class="fa fa-eye me-1"></i>{{ article.views }}
+                                        </span>
+                                        <span>
+                                            <i class="fa fa-calendar me-1"></i>{{ article.created_at|date:"d.m" }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Latest Articles -->
+                <div class="bg-light rounded p-4">
+                    <h4 class="mb-4">So'ngi yangiliklar</h4>
+                    <div class="d-flex flex-column">
+                        {% for article in latest_articles %}
+                        <div class="border-bottom pb-3 mb-3">
+                            <a href="{% url 'article-details' article.slug %}" 
+                               class="h6 mb-2 d-block link-hover">
+                                {{ article.title|truncatechars:60 }}
+                            </a>
+                            <div class="d-flex justify-content-between text-muted small">
+                                <span>{{ article.category.name }}</span>
+                                <span>{{ article.created_at|date:"H:i" }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Category Content End -->
+
+{% endblock %}

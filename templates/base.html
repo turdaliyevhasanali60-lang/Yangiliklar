@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <title>Newsers - Free HTML Magazine Template</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@100;600;800&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="/static/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="/static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="/static/css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+
+
+
+        <!-- Navbar start -->
+
+            <div class="container-fluid bg-light">
+                <div class="container px-0">
+                    <nav class="navbar navbar-light navbar-expand-xl">
+                        <a href="{% url 'home' %}" class="navbar-brand mt-3">
+                            <p class="text-primary display-6 mb-2" style="line-height: 0;">Newsers</p>
+                            <small class="text-body fw-normal" style="letter-spacing: 12px;">Nespaper</small>
+                        </a>
+                        <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                            <span class="fa fa-bars text-primary"></span>
+                        </button>
+                        <div class="collapse navbar-collapse bg-light py-3" id="navbarCollapse">
+                            <div class="navbar-nav mx-auto border-top">
+                                <a href="{% url 'home' %}" class="nav-item nav-link active">Bosh sahifa</a>
+                                <a href="#" class="nav-item nav-link">/</a>
+                                <a href="{% url 'contact' %}" class="nav-item nav-link">Aloqa</a>
+                            </div>
+                            <div class="d-flex flex-nowrap border-top pt-3 pt-xl-0">
+                                <div class="d-flex">
+                                    <img src="{{ weather.condition.icon }}" class="img-fluid w-100 me-2" alt="">
+                                    <div class="d-flex align-items-center">
+                                        <strong class="fs-4 text-secondary">{{ weather.temp }}°C</strong>
+                                        <div class="d-flex flex-column ms-2" style="width: 150px;">
+                                            <span class="text-body">Farg'ona,</span>
+                                            <small>{{ weather.time }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+
+
+{% block content %}
+
+
+{% endblock %}
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark footer py-3">
+    <div class="container py-3 d-flex flex-column">
+
+        <!-- Top Row: Logo + Newsletter + Contact evenly spread -->
+        <div class="d-flex flex-wrap justify-content-between align-items-start mb-3">
+            <!-- Logo -->
+            <div class="me-4">
+                <p class="text-white mb-0 h5">Newsers</p>
+                <small class="text-light" style="letter-spacing: 8px; line-height: 0;">Newspaper</small>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="flex-grow-1 mx-4">
+                <div class="d-flex position-relative rounded-pill overflow-hidden">
+                    <input class="form-control border-0 w-100 py-2 rounded-pill" type="email" placeholder="example@gmail.com">
+                    <button type="submit" class="btn btn-primary border-0 py-2 px-4 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe</button>
+                </div>
+            </div>
+
+            <!-- Contact + Social -->
+            <div class="ms-4">
+                <h5 class="text-white mb-2">Get In Touch</h5>
+                <p class="text-secondary mb-1">Address: <span class="text-white">123 Street, New York</span></p>
+                <p class="text-secondary mb-1">Email: <span class="text-white">newsers@gmail.com</span></p>
+                <p class="text-secondary mb-2">Phone: <span class="text-white">+0123 4567 8910</span></p>
+                <div class="d-flex">
+                    <a class="btn btn-light me-2 btn-sm-square rounded-circle" href="https://t.me/sat_fergana_channel"><i class="fab fa-telegram text-dark"></i></a>
+                    <a class="btn btn-light me-2 btn-sm-square rounded-circle" href="https://www.instagram.com/satfergana_official?igsh=aG93a2VyYTUxMHQx"><i class="fab fa-instagram text-dark"></i></a>
+                    <a class="btn btn-light me-2 btn-sm-square rounded-circle" href="https://www.youtube.com/@sat_fergana"><i class="fab fa-youtube text-dark"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row: copyright -->
+        <div class="text-center text-secondary pt-2 border-top">
+            <small>&copy; Newsers, All rights reserved.</small>
+        </div>
+
+    </div>
+</div>
+<!-- Footer End -->
+
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Newsers</a>, All right reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-2 border-white rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/lib/easing/easing.min.js"></script>
+        <script src="/static/lib/waypoints/waypoints.min.js"></script>
+        <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="/static/js/main.js"></script>
+    </body>
+
+</html>
